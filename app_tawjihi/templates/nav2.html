@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- Coding by CodingNepal || www.codingnepalweb.com -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'nav.css' %}" />
+    <!-- Boxicons CSS -->
+    <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <script src="{% static 'scriptnav.js' %}" defer></script>
+  </head>
+  <body>
+    <nav class="sidebar close">
+      <div class="logo_items flex">
+        <span class="nav_image">
+          <img src="{% static 'logo.jpeg' %}" alt="logo_img" />
+        </span>
+        <span class="logo_name">Tawjihi</span>
+      </div>
+      <i class='bx bx-chevron-right toggle'></i>
+      <div class="menu_container">
+        <div class="menu_items">
+          <ul class="menu_item">
+           
+            <li class="item">
+              <a href="{% url 'profile_etud' etudiant_id=etudiant.cne %}" class="link flex">
+              <i class="bx bx-user -alt icon"></i>
+              <span>Profil</span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="{% url 'historique_etudiant' etudiant_id=etudiant.cne %}" class="link flex">
+                <i class="bx bx-history icon"></i> <!-- Icône pour l'historique -->
+                <span>Historique</span>
+            </a>
+        </li>
+         
+          <li class="item">
+              <a href="{% url 'afficher_resultat' etd_id=etudiant.id etd_cne=etudiant.cne %}" class="link flex">
+                  <i class="bx bx-book-open icon"></i> <!-- Icône pour les cours -->
+                  <span>Notes et Résultas</span>
+              </a>
+          </li>
+          <li class="item">
+            <a href="{% url 'student_choices' etudiant_cne=etudiant.cne %}" class="link flex">
+                  <i class="bx bx-compass icon"></i> <!-- Icône pour l'orientation -->
+                  <span>Orientation</span>
+              </a>
+          </li>
+            
+            <li class="item">
+                <a href="{% url 'logout_view' %}"  class="link flex">
+                <i class="bx bx-log-out -alt icon"></i>
+                <span>Se Deconnecter</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </body>
+</html>

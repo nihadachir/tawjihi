@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes et Résultats</title>
+    <link rel="stylesheet" href="{% static 'style2.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
+    <style>
+        /* Ajoutez ici les styles de la première page */
+        body{
+            background-color: #f3f3f2;
+            padding: 1rem; /* Ajout de padding uniforme autour du contenu */
+            font-family: Arial, sans-serif; /* Utilisation d'une police de caractères générique */
+        }
+
+        .container {
+            padding: 0 1rem; /* Ajustement du padding pour être plus proche du contenu */
+            margin: 0 auto;
+            max-width: 1000px;
+        }
+
+        .heading {
+            font-size: 1rem; /* Réduction légère de la taille de la police */
+            margin-bottom: 1.5rem; /* Réduction de la marge inférieure */
+            border-bottom: var(--border);
+            padding-bottom: 1rem; /* Réduction du padding inférieur */
+            text-transform: lowercase;
+            text-align: center;
+        }
+
+        table {
+            margin-top :20px;
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem; /* Ajustement de l'espace en bas du tableau */
+            border: var(--border); /* Ajout d'une bordure pour plus de cohérence */
+        }
+
+        th, td {
+            padding: 1rem; /* Ajustement du padding */
+        }
+
+        th {
+            background-color:#ed9c39;
+        }
+            h2 {
+    background-color: #f09525;  /* Couleur de fond */
+    color: white;               /* Couleur du texte */
+    padding: 10px 20px;         /* Padding pour donner de l'espace autour du texte */
+    border-radius: 5px;         /* Bords arrondis */
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2); /* Ombre portée légère pour un effet de profondeur */
+    text-align: center;         /* Centrer le texte */
+    margin-top: 20px;           /* Espace au-dessus du titre */
+    margin-bottom: 5px;        /* Espace en dessous du titre */
+}
+h2.instruction {
+    background-color: #ffffff; /* Couleur de fond claire */
+    color: #333;               /* Couleur de texte foncée */
+    padding: 10px 20px;        /* Padding similaire pour l'homogénéité */
+    border: 1px solid #f09525; /* Bordure colorée pour attirer l'attention */
+    border-radius: 5px;        /* Bords arrondis */
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.1); /* Ombre plus subtile */
+    text-align: center;        /* Texte centré */
+    margin-top: 10px;          /* Moins d'espace au-dessus pour une hiérarchie visuelle diminuée */
+    margin-bottom: 0px;       /* Espace en dessous réduit */
+    font-size: 16px;           /* Taille de police réduite pour moins d'emphase */
+}
+    </style>
+<body>
+    {% include "nav2.html" %}
+    <div class="main-content row">
+        <div class="container">
+            <div class="main-content row">
+                <div class="container">
+                    <div class="heading">
+                        <h2> Les Notes de l'Étudiant : {{ etudiant.nom }} {{ etudiant.prenom }}</h2>
+                        <br>
+                        <h5>Niveau: {{ niveau }}</h5>
+                        <h5>Année Scolaire: {{ annee_scolaire }}</h5> 
+                        {% for matiere_classe in matiere_classe %}
+                        <h5>Classe: {{ matiere_classe.classe.nom }}</h5>
+                        <h5>Nombre d'Étudiants: {{ matiere_classe.classe.nombre_etudiant }}</h5>
+                        <h5>Semestre: {{ semestre }}</h5>
+                        <div class="table-container">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Matière</th>
+                                        <th>Note</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for matiere, notes in matiere_classe.matieres_notes.items %}
+                                    <tr>
+                                        <td>{{ matiere }}</td>
+                                        {% for note in notes %}
+                                        <td>{{ note }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endfor %}
+                        <h5>La note générale du semestre {{ semestre }}: {{ note_generale_semestre }}</h5>
+                    </div>
+                </div>
+            </div>
+</body>
+</html>

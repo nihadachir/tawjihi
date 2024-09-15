@@ -1,0 +1,114 @@
+{% include "nav2.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orientation pour {{ etudiant.nom }}</title>
+    <link rel="stylesheet" href="{% static 'style2.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
+    <style>
+        body{
+            background-color: #f3f3f2;
+        }
+        img {
+        width: 16px;
+        height: 16px;
+        vertical-align: middle;
+        }
+        .btn-orange {
+            background-color: #f09525;
+            border-color: #f09525;
+            
+        }
+        .btn-orange:hover {
+            background-color: rgb(243, 171, 84);
+            border-color: rgb(243, 171, 84);
+            
+        }
+        .form-control:focus {
+        box-shadow: 0 0 5px rgb(243, 171, 84); /* Rayon du flou et couleur */
+        border-color: rgb(243, 171, 84); /* Pour que la bordure soit aussi de la même couleur */
+        }
+        h2 {
+    background-color: #f09525;  /* Couleur de fond */
+    color: white;               /* Couleur du texte */
+    padding: 10px 20px;         /* Padding pour donner de l'espace autour du texte */
+    border-radius: 5px;         /* Bords arrondis */
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2); /* Ombre portée légère pour un effet de profondeur */
+    text-align: center;         /* Centrer le texte */
+    margin-top: 20px;           /* Espace au-dessus du titre */
+    margin-bottom: 30px;        /* Espace en dessous du titre */
+}
+h2.instruction {
+    background-color: #ffffff; /* Couleur de fond claire */
+    color: #333;               /* Couleur de texte foncée */
+    padding: 10px 20px;        /* Padding similaire pour l'homogénéité */
+    border: 1px solid #f09525; /* Bordure colorée pour attirer l'attention */
+    border-radius: 5px;        /* Bords arrondis */
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.1); /* Ombre plus subtile */
+    text-align: center;        /* Texte centré */
+    margin-top: 10px;          /* Moins d'espace au-dessus pour une hiérarchie visuelle diminuée */
+    margin-bottom: 20px;       /* Espace en dessous réduit */
+    font-size: 16px;           /* Taille de police réduite pour moins d'emphase */
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="main-content ">
+        <div class="container">
+    <h2>Orientation pour {{ etudiant.nom }}</h2>
+    <h2 class="instruction">Vous devez choisir seulement 2 options :</h2>
+    {% if choices.count < 2 %}
+    <a href="{% url 'add_choice' etudiant.cne %}" class="btn btn-orange btn-sm" style="margin-bottom: 40px;margin-top: 40px;">Ajouter</a>
+    {% endif %}
+    <div class="table-container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>l'ordre</th>
+                <th>les niveaux choisis</th>
+                <th>continuer dans cette école?</th>
+                <th>Modifier</th>
+                <th>supprimer</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for choice in choices %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ choice.niveau.nom }}</td>
+                {% if choice.continue_in_school == True %}
+                <td>Oui</td>
+                {% else %}
+                <td>Non</td>
+                {% endif %}
+                <td style="text-align: center;"><a href="{% url 'modify_choice' etudiant_cne=etudiant.cne choice_id=choice.id %}"><img src="{% static 'write.jpeg' %}" alt="Modifier"></a></td>
+                <td style="text-align: center;"><a href="{% url 'delete_choice' etudiant_cne=etudiant.cne choice_id=choice.id %}"><img src="{% static 'remove.jpeg' %}" alt="Supprimer"></a></td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<form method="post" class="mt-4">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="reason_for_choice">Pourquoi avez-vous choisi ces choix ?</label>
+        <input type="text" class="form-control" id="reason_for_choice" name="reason_for_choice" value="{{ choices.first.reason_for_choice }}" required>
+    </div>
+    <div class="form-group">
+        <label for="dream_job">Quel est le travail de tes rêves ?</label>
+        <input type="text" class="form-control" id="dream_job" name="dream_job" value="{{ choices.first.dream_job }}" required>
+    </div>
+    <button type="submit" class="btn btn-orange btn-sm">Enregistrer</button>
+</form>
+
+</div>
+</div>
+</body>
+</html>

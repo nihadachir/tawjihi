@@ -1,0 +1,91 @@
+{% include "nav2.html" %}
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note et Résultats</title>
+       <!-- Inclusion de Bootstrap via CDN -->
+       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+       <style>
+        .btn-orange {
+            background-color: #f09525;
+            border-color: #f09525;
+            margin-top: 30px;
+        }
+        .btn-orange:hover {
+            background-color: rgb(243, 171, 84);
+            border-color: rgb(243, 171, 84);
+        }
+            body{
+                background-color: #f3f3f2;
+                padding: 1rem; /* Ajout de padding uniforme autour du contenu */
+                font-family: Arial, sans-serif; /* Utilisation d'une police de caractères générique */
+            }
+    
+            .container {
+                padding: 0 1rem; /* Ajustement du padding pour être plus proche du contenu */
+                margin: 0 auto;
+                max-width: 800px;
+            }
+    
+            .heading {
+                font-size: 1rem; /* Réduction légère de la taille de la police */
+                margin-bottom: 1.5rem; /* Réduction de la marge inférieure */
+                border-bottom: var(--border);
+                padding-bottom: 1rem; /* Réduction du padding inférieur */
+                text-transform: capitalize;
+                text-align: left;
+            }
+            h2 {
+                    background-color: #f09525;  /* Couleur de fond */
+                    color: white;               /* Couleur du texte */
+                    padding: 10px 20px;         /* Padding pour donner de l'espace autour du texte */
+                    border-radius: 5px;         /* Bords arrondis */
+                    box-shadow: 2px 2px 5px rgba(0,0,0,0.2); /* Ombre portée légère pour un effet de profondeur */
+                    text-align: center;         /* Centrer le texte */
+                    margin-top: 20px;           /* Espace au-dessus du titre */
+                    margin-bottom: 30px;        /* Espace en dessous du titre */
+            }
+            h2.instruction {
+                background-color: #ffffff; /* Couleur de fond claire */
+                color: #333;               /* Couleur de texte foncée */
+                padding: 10px 20px;        /* Padding similaire pour l'homogénéité */
+                border: 1px solid #f09525; /* Bordure colorée pour attirer l'attention */
+                border-radius: 5px;        /* Bords arrondis */
+                box-shadow: 1px 1px 3px rgba(0,0,0,0.1); /* Ombre plus subtile */
+                text-align: center;        /* Texte centré */
+                margin-top: 10px;          /* Moins d'espace au-dessus pour une hiérarchie visuelle diminuée */
+                margin-bottom: 30px;       /* Espace en dessous réduit */
+                font-size: 16px;           /* Taille de police réduite pour moins d'emphase */
+          }
+        </style>
+       
+</head>
+<body> 
+    <div class="main-content">
+        <div class="container">
+            <div class="heading">
+                <h2>Résultats pour {{ etudiant.nom }} {{ etudiant.prenom }}</h2>
+                <form method="POST" action="{% url 'resultat' etd_id=etudiant.id semestre=1 %}">
+                    {% csrf_token %}
+                        <div class="form-group">
+                            <label for="semestre">Semestre</label>
+                            <input type="text" class="form-control" name="semestre" placeholder="Semestre" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Année scolaire</label> 
+                            <select class="form-control" name="annee_scolaire" required>
+                                {% for classe_item in classes %}
+                                    <option>{{ classe_item.annee_scolaire }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    <button type="submit" class="btn btn-orange">Afficher Résultat</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

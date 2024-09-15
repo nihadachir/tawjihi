@@ -1,0 +1,68 @@
+{% include "nav.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style2.css' %}">
+    <title>Espace Professeur</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
+    <style>
+        body{
+            background-color: #f3f3f2;
+        }
+  img {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+  }
+  .btn-orange {
+            background-color: #f09525;
+            border-color: #f09525;
+        }
+        .btn-orange:hover {
+            background-color: rgb(243, 171, 84);
+            border-color: rgb(243, 171, 84);
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content ">
+        <div class="container">
+            <a href="{% url 'ajouter_note' prof_id=prof.id classe_id=classe.id %}" class="btn btn-orange btn-sm" style="margin-bottom: 40px;margin-top: 40px;">Ajouter une note</a>
+
+
+    
+
+    <div class="table-container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Étudiant</th>
+                <th>Matière</th>
+                <th>Note</th>
+                <th>Semestre</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for note in notes %}
+            <tr>
+                <td>{{ note.fk_etudiant.nom}} {{ note.fk_etudiant.prenom }}</td>
+                <td>{{ note.fk_matiere.nom }}</td>
+                <td>{{ note.note }}</td>
+                <td>{{ note.semestre }}</td>
+                <td style="text-align: center;"><a href="{% url 'modifier_note' note_id=note.id prof_id=prof.id classe_id=classe.id%}"><img src="{% static 'write.jpeg' %}" alt="Supprimer"></a></td>
+                <td style="text-align: center;"><a href="{% url 'supprimer_note' note_id=note.id prof_id=prof.id classe_id=classe.id%}"><img src="{% static 'remove.jpeg' %}" alt="Supprimer"></a></td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+    </div>
+</body>
+</html>

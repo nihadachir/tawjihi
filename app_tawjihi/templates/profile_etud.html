@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Profil de l'étudiant</title>
+   <!-- Bootstrap CSS -->
+   <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
+   
+   <!-- Chart.js -->
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   
+   <style>
+      :root{
+         --light-color:#888;
+         --light-bg:#eee;
+         --black:#2c3e50;
+         --white:#fff;
+         --border:.1rem solid rgba(0,0,0,.2);
+      }
+      
+      
+      body{
+         background-color: var(--light-bg);
+         padding-left: 1rem;
+      }
+      
+      .container{
+         padding-left:10rem;
+         padding-right:10rem;
+         padding-top:0.5rem;
+         padding-bottom:1rem;
+         margin: 0 auto;
+         max-width: 1000px;
+      }
+      
+      .heading{
+         font-size: 2.5rem;
+         color:#ed9c39;
+         margin-bottom: 2rem;
+         border-bottom: var(--border);
+         padding-bottom: 1.5rem;
+         text-transform: capitalize;
+         text-align:center;
+      }
+      
+      .user-profile .info{
+         background-color: var(--white);
+         border-radius: .5rem;
+         padding: 2rem;
+         max-width: 5000px;
+      }
+      
+      .user-profile .info .user{
+         text-align: center;
+         margin-bottom: 2rem;
+         padding: 1rem;
+      }
+      
+      .user-profile .info .user img{
+         height: 10rem;
+         width: 10rem;
+         border-radius: 50%;
+         object-fit: cover;
+         margin-bottom: 1rem;
+      }
+      
+      .user-profile .info .user h3{
+         font-size: 2rem;
+         color: #ed9c39;
+      }
+      
+      .user-profile .info .user p{
+         font-size: 1rem;
+         color: var(--light-color); 
+         padding: .3rem 0;
+      }
+      h3{
+         color: #ed9c39;
+      }
+   </style>
+</head>
+
+<body>
+   {% include "nav2.html" %}
+
+<div class="main-content row">
+   <div class="user-profile container">
+
+      <h1 class="heading">Profil de l'étudiant</h1>
+
+      <div class="info">
+
+         <div class="user">
+            <img src="{% static 'etudiant.png' %}" alt="">
+            <h3>{{ etudiant.nom }} {{ etudiant.prenom }}</h3> 
+            <p>Étudiant</p>
+            <p> CNE : {{ etudiant.cne }}</p>
+            <p> Date de naissance : {{ etudiant.date_naissance }}</p>
+            
+            <p> Tuteur : {{ etudiant.nom_tuteur }} {{etudiant.nom}}</p>
+            <p> Téléphone : {{ etudiant.telephone }}</p>
+            
+            
+            
+         </div>
+         
+      </div>
+
+   </div> 
+</div>
+
+
+ <!-- Bootstrap JS (Optional, if you need Bootstrap JavaScript functionalities) -->
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js" integrity="sha384-5Z2rFNZJf0R75nP9yQQPtdOvNc5JwCgaF8Z5gU7iqp8XrBdS4Wvhr1f/1AR9bpDi" crossorigin="anonymous"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shCzFzU5z9xgPvoUp6iUGNrFg=="></script>
+ 
+</body>
+</html>

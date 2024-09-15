@@ -1,0 +1,62 @@
+{% include "nav.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une note</title>
+    <!-- Inclusion de Bootstrap via CDN -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f3f3f2;
+            height: 100vh; /* Hauteur de la vue entière */
+            margin: 0;
+        }
+        .main-content {
+            max-width: 500px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .btn-orange {
+            background-color: #f09525;
+            border-color: #f09525;
+        }
+        .btn-orange:hover {
+            background-color: rgb(243, 171, 84);
+            border-color: rgb(243, 171, 84);
+        }
+    </style>
+</head>
+<body class="d-flex justify-content-center align-items-center">
+    <div class="main-content">
+        <h1 class="text-center mb-4">Ajouter une note</h1>
+        <form method="post" action="{% url 'ajouter_note' prof_id=prof.id classe_id=classe_id %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="etudiant_cne">Étudiant CNE</label>
+                <select name="etudiant_cne" class="form-control">
+                    {% for etudiant in etudiants %}
+                        <option value="{{ etudiant.cne }}">{{ etudiant.cne }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="matiere_id">Matière</label>
+                <select name="matiere_id" class="form-control" required>
+                    <option value="{{ matiere.id }}">{{ matiere.nom }}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="note">Note</label>
+                <input type="text" class="form-control" name="note" placeholder="Note" required>
+            </div>
+            <div class="form-group">
+                <label for="semestre">Semestre</label>
+                <input type="text" class="form-control" name="semestre" placeholder="Semestre" required>
+            </div>
+            <button type="submit" class="btn btn-orange">Ajouter Note</button>
+        </form>
+    </div>
+</body>
+</html>

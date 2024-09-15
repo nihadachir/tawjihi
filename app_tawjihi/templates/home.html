@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Accueil</title>
+</head>
+<body>
+   
+
+<div class="container" id="container">
+   
+   
+    <div class="form-container sign-up">
+        <form action="{% url 'etudiant_login' %}" method="post">
+            {% csrf_token %}
+            <h1>Espace Étudiant</h1>
+            <br>
+            <span>Utilisez votre CNE et mot de passe</span>
+            <br>
+            <input type="text" placeholder="CNE" name="cne">
+            <input type="password" placeholder="Mot de passe" name="password">
+           
+            <button>Se connecter</button>
+        </form>
+    </div>
+    <div class="form-container sign-in">
+        <form action="{% url 'professeur_login' %}" method="post">
+            {% csrf_token %}
+            <h1>Espace Professeur</h1><br>
+            <span>Utilisez votre email et mot de passe</span><br>
+            <input type="email" placeholder="Email" name="email">
+            <input type="password" placeholder="Mot de passe" name="password">
+            
+            <button>Se connecter</button>
+        </form>
+    </div>
+    <div class="toggle-container">
+        <div class="toggle">
+            <div class="toggle-panel toggle-left">
+                <h2>Espace Professeur!</h2><br>
+                <p>Entrez vos informations personnelles pour accéder à toutes les fonctionnalités du site</p><br>
+                <button class="hidden" id="login">Basculer vers Professeur</button>
+            </div>
+            <div class="toggle-panel toggle-right">
+                <h1>Espace Étudiant!</h1>
+                <p>Entrez vos informations personnelles pour accéder à toutes les fonctionnalités du site</p>       
+                <button class="hidden" id="register">Basculer vers Étudiant</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const container = document.getElementById('container');
+    const registerBtn = document.getElementById('register');
+    const loginBtn = document.getElementById('login');
+    
+    registerBtn.addEventListener('click', () => {
+        container.classList.add("active");
+    });
+    
+    loginBtn.addEventListener('click', () => {
+        container.classList.remove("active");
+    });
+</script>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+</body>
+</html>

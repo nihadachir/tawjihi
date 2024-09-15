@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier Note</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f3f3f2;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .main-content {
+            max-width: 500px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .btn-orange {
+            background-color: #f09525;
+            border-color: #f09525;
+        }
+        .btn-orange:hover {
+            background-color: rgb(243, 171, 84);
+            border-color: rgb(243, 171, 84);
+        }
+    </style>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="main-content">
+        <h1 class="text-center mb-4">Modifier la Note</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="semestre">Semestre</label>
+                        {{ form.semestre }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="note">Note</label>
+                        {{ form.note }}
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-orange">Mettre à jour</button>
+        </form>
+    </div>
+</body>
+</html>

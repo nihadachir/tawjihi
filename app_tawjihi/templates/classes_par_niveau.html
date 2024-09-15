@@ -1,0 +1,71 @@
+{% include "nav.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Classes pour {{ niveau.nom }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
+    <style>
+        body{
+            background-color: #f3f3f2;
+        }
+        .btn-orange {
+            background-color: #f09525;
+            border-color: #f09525;
+        }
+        .btn-orange:hover {
+            background-color: rgb(243, 171, 84);
+            border-color: rgb(243, 171, 84);
+        }
+        .title-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+            margin: 0;
+            padding: 0 20px;
+            border-bottom: 2px solid #333;
+            display: inline-block;
+        }
+        .table-container {
+            margin: auto;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content ">
+    <div class="container">
+        <div class="title-container">
+            <h1 class="title">Classes pour le niveau {{ niveau.nom }} enseignées par {{ professeur.nom }}</h1>
+        </div>
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Classes</th>
+                        <th>Année scolaire</th>
+                        <th>Nombre d'étudiants</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for classe in classes %}
+                    <tr>
+                        <td>{{ classe.nom }}</td>
+                        <td>{{ classe.annee_scolaire }}</td>
+                        <td>{{ classe.nombre_etudiant }}</td>
+                        <td><a href="{% url 'afficher_note' classe_id=classe.id prof_id=prof.id %}" class="btn btn-orange btn-sm">Afficher</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

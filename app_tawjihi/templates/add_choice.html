@@ -1,0 +1,61 @@
+{% include "nav2.html" %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un choix pour {{ etudiant.nom }}</title>
+    <!-- Bootstrap CSS pour un style cohérent -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f3f3f2;
+            height: 100vh; /* Hauteur totale de la vue */
+            margin: 0;
+            display: flex;
+            justify-content: center; /* Centrer le contenu horizontalement */
+            align-items: center; /* Centrer le contenu verticalement */
+        }
+        .main-content {
+            max-width: 500px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background-color: #f3f3f2; /* Fond blanc pour la zone du formulaire */
+        }
+        .btn-orange {
+            background-color: #f09525;
+            border-color: #f09525;
+        }
+        .btn-orange:hover {
+            background-color: rgb(243, 171, 84);
+            border-color: rgb(243, 171, 84);
+        }
+        .form-check-input {
+            margin-left: 40px; /* Ajoute de l'espace sous le checkbox */
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <h1 class="text-center mb-4">Ajouter un choix pour {{ etudiant.nom }}</h1>
+        <form method="post" action="{% url 'add_choice' etudiant_cne=etudiant.cne %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="niveau">Niveau :</label>
+                <select name="niveau" class="form-control">
+                    {% for niveau in niveaux %}
+                    <option value="{{ niveau.id }}">{{ niveau.nom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="continue_in_school">Continuer à l'école :</label>
+                <input type="checkbox" class="form-check-input" id="continue_in_school" name="continue_in_school">
+            </div>
+            <button type="submit" class="btn btn-orange">Ajouter</button>
+            <!-- Bouton annuler si nécessaire -->
+            <a href="{% url 'student_choices' etudiant_cne=etudiant.cne %}" class="btn btn-secondary">Annuler</a>
+        </form>
+    </div>
+</body>
+</html>
